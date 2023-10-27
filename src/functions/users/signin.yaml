@@ -1,0 +1,31 @@
+id: signin_wf
+tasks:
+  - id: checkdb
+    fn: datasource.mariaDB.User.findUnique
+    args:
+      where:
+        username: <% inputs.body.username %>
+        password: <% utils.hash(inputs.body.password) %>
+      include:
+        - username
+        - id
+  - id: check_user
+    fn: com.gs.switch
+    value: <% outputs.chcckdb.data === null %>
+    cases:
+      true:
+        - id: no_user_found
+          fn: com.gs.return
+          args:
+            status: false
+            code: 404
+            message: 'User not found.'
+            data: {}
+      false:
+        - id: user_found
+          fn: com.gs.return
+          args:
+            success: true
+            code: 200
+            message: 'Successful login'
+            data: "<% { userId: outputs.chcckdb.data.id} %>"

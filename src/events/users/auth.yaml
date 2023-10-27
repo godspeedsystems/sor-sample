@@ -1,0 +1,28 @@
+# sign up
+http.post./auth/signup:
+  fn: user.signup
+  body:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            email:
+              type: string
+            password:
+              type: string
+            role:
+              type: string
+              enum: ['ADMIN', 'USER']
+
+# sign in
+http.post./auth/signin:
+  fn: user.signin
+  body:
+    schema:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string

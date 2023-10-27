@@ -1,0 +1,4 @@
+type: express
+port: 3000
+swagger:
+  endpoint: /api-docs

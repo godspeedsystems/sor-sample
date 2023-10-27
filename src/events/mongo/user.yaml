@@ -1,0 +1,88 @@
+# ONE
+http.get./mongo/user/{id}:
+  summary: Fetch User
+  description: Fetch User from database
+  fn: com.biz.mariaDB.user.one
+  params:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: string
+  responses:
+    content:
+      application/json:
+        schema:
+          type: object
+
+# CREATE
+http.post./mongo/user:
+  summary: Create a new User
+  description: Create User from database
+  fn: com.biz.mariaDB.user.create
+  body:
+    content:
+      application/json:
+        schema:
+          $ref: '#/definitions/mongo/User'
+  responses:
+    content:
+      application/json:
+        schema:
+          type: object
+
+# UPDATE
+http.put./mongo/user/{id}:
+  summary: Update a User
+  description: Update User from database
+  fn: com.biz.mariaDB.user.update
+  body:
+    content:
+      application/json:
+        schema:
+          $ref: '#/definitions/mongo/User'
+  params:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: string
+  responses:
+    content:
+      application/json:
+        schema:
+          type: object
+
+# DELETE
+http.delete./mongo/user/{id}:
+  summary: Delete a User
+  description: Delete User from database
+  fn: com.biz.mariaDB.user.delete
+  params:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: string
+  responses:
+    content:
+      application/json:
+        schema:
+          type: object
+
+# SEARCH
+http.post./mongo/user/search:
+  summary: Fetch multiple User
+  description: Fetch multiple User from database
+  fn: com.biz.mariaDB.user.search
+  body:
+    content:
+      application/json:
+        schema:
+          type: object
+  responses:
+    content:
+      application/json:
+        schema:
+          type: array
+

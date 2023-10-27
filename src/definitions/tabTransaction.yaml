@@ -1,0 +1,118 @@
+tabTransactionBody:
+  type: object
+  properties:
+    name:
+      type: string
+    creation:
+      type: string
+      format: date-time
+      nullable: true
+    modified:
+      type: string
+      format: date-time
+      nullable: true
+    modified_by:
+      type: string
+      nullable: true
+    owner:
+      type: string
+      nullable: true
+    docstatus:
+      type: integer
+      default: 0
+    idx:
+      type: integer
+      default: 0
+    account:
+      type: string
+      nullable: true
+    account_type:
+      type: string
+      nullable: true
+    customer:
+      type: string
+      nullable: true
+    tsp:
+      type: string
+      nullable: true
+    transaction_type:
+      type: string
+      nullable: true
+    dr_cr:
+      type: string
+      nullable: true
+    beneficiary:
+      type: string
+      nullable: true
+    amount:
+      type: number
+      default: 0
+    channel:
+      type: string
+      default: '0'
+      nullable: true
+    purpose:
+      type: string
+      nullable: true
+    original_transaction_number:
+      type: string
+      nullable: true
+    original_transaction_date:
+      type: string
+      nullable: true
+    transaction_currency:
+      type: string
+      nullable: true
+    exchange_rate:
+      type: number
+      default: 0
+    additional_transaction_number:
+      type: string
+      nullable: true
+    user_tags:
+      type: string
+      nullable: true
+    comments:
+      type: string
+      nullable: true
+    assign:
+      type: string
+      nullable: true
+    liked_by:
+      type: string
+      nullable: true
+
+# success response schema
+tabTransactionSuccessResponse:
+  type: object
+  required: ['code', 'success', 'message', 'data']
+  properties:
+    code:
+      type: number
+      enum: [200, 201]
+    success:
+      type: boolean
+      const: true
+    message:
+      type: string
+    data:
+      type: object
+
+# failure response schema
+tabTransactionFailureResponse:
+  type: object
+  required: ['code', 'success', 'message', 'data']
+  properties:
+    code:
+      type: number
+      enum: [200, 201]
+    success:
+      type: boolean
+      const: true
+    message:
+      type: string
+    data:
+      type: object
+
+
+

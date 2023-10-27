@@ -1,0 +1,32 @@
+type: axios
+schema: https://raw.githubusercontent.com/Kong/swagger-ui-kong-theme/main/demo/public/specs/httpbin.yaml
+
+# datasource level retry config
+retry:
+  max_attempts: 5
+  type: constant
+  interval: PT15M
+
+# headers for all the datasource calls, particular request can override too
+headers:
+  x-hasura-admin-secret: g08A3qQy00y8yFDq3y6N1ZQnhOPOa4msdie5EtKS1hFStar01JzPKrtKEzYY2BtF
+  x-hasura-role: admin
+
+# hooks to run before/after datasource calls
+before_method_hook: com.biz.before_method_hook_workflow
+after_method_hook: com.biz.after_method_hook_workflow
+
+# for demontration purposes, this can be set expilicitly for token refresh
+refresh_status_code: [401]
+security:
+  - ApiKey: sample-app-key
+  - ApiToken: <% config.httpbin.api_token %>
+securitySchemes:
+  ApiKey:
+    type: apiKey
+    in: header
+    name: x-api-key
+  ApiToken:
+    type: apiKey
+    in: header
+    name: Authorization

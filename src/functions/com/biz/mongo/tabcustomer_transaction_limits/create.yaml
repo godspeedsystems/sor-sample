@@ -1,0 +1,6 @@
+summary: Create tabCustomer_Transaction_Limits
+tasks:
+  - id: mongo_tabcustomer_transaction_limits_create
+    fn: datasource.mariaDB.tabCustomer_Transaction_Limits.create
+    args:
+      data: <% inputs.body %>

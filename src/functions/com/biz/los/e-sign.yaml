@@ -1,0 +1,41 @@
+  id: agreement_esign
+  summary: agreement esign
+  tasks:
+    - id: step1 # the response of this will be accessible within the parent step key, under the step1 sub key
+      description: agreement esign
+      # simple allow / deny
+      authz: <% inputs.user.role  === 'ADMIN' && inputs.user.department === 'ACCOUNTS' %>
+      fn: datastore.e-sign-api.post./v1/loan-application/<% inputs.params.lender_loan_application_id %>/agreement/esign/initiate
+      args:
+        docId: <% inputs.body.docId %>
+      retry:
+        max_attempts: 5
+        type: constant
+        interval: PT15M
+      metrics:
+      - name: metric_name
+        type: counter
+        labels:
+          e-sign_counter: 1
+      on_error:
+        continue: false
+        log_attributes:  # You can add specific log attributes when an error happens in a task.
+            error_message: "Error while getting transaction limit."
+            error_type: db_error
+        response:
+          success: false
+          code: 500
+          data: "Error while doing e-sign."
+    - id: step2
+      fn: com.gs.transform
+      args: |
+        <% if outputs.step1.data.success then outputs.step1.data else {
+              code: outputs.step1.code,
+              success : false,
+              data: {
+                error_data: outputs.step1.data['error'],
+                uuid: outputs.step1.data.uuid,
+                status_code_error: outputs.step1.data.status_code_error,
+                event: outputs.step1.data.event
+              }
+        }%>

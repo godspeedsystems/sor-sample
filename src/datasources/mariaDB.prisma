@@ -1,0 +1,47 @@
+datasource db {
+  provider = "mongodb"
+  url      = env("MARIADB_URL")
+}
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["tracing"]
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+model User {
+  id       Int     @id @map("_id")
+  email    String  @unique
+  password String // @encrypted
+  name     String?
+  role     Role    @default(USER)
+}
+
+model tabCustomer_Transaction_Limits {
+  name                  String    @id @map("_id")
+  creation              DateTime? @default(now())
+  modified              DateTime? @updatedAt
+  modified_by           String?
+  owner                 String?
+  docstatus             Int       @default(0)
+  idx                   Int       @default(0)
+  customer              String?
+  rule_name             String?
+  beneficiary           String?
+  duration              String?
+  period_start          DateTime? @db.Date
+  current_limit_value   Int
+  limit_value           Int
+  remaining_limit_value Int
+  user_tags             String?   @map("_user_tags")
+  comments              String?   @map("_comments")
+  assign                String?   @map("_assign")
+  liked_by              String?   @map("_liked_by")
+
+  @@index([modified], map: "modified")
+  @@map("tabCustomer Transaction Limits")
+}

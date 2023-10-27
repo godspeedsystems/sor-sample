@@ -1,0 +1,5 @@
+hello:
+  type: object
+  properties:
+    name: hi
+    type: text

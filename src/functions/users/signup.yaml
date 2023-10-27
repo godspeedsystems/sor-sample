@@ -1,0 +1,12 @@
+id: signup_wf
+tasks:
+  - id: create_user
+    fn: datasource.mariaDB.User.create
+    args:
+      data: <% inputs.body %>
+  - id: check_user
+    fn: com.gs.return
+    args: |
+      <%
+        { userId: outputs.create_user.data.id }
+      %>

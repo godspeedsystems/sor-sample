@@ -1,0 +1,75 @@
+User:
+  type: object
+  properties:
+    email:
+      type: string
+    password:
+      type: string
+    name:
+      type: string
+      nullable: true
+    role:
+      type: string
+      default: USER
+      enum:
+        - USER
+        - ADMIN
+tabCustomer_Transaction_Limits:
+  type: object
+  properties:
+    name:
+      type: string
+    creation:
+      type: string
+      format: date-time
+      nullable: true
+    modified:
+      type: string
+      format: date-time
+      nullable: true
+    modified_by:
+      type: string
+      nullable: true
+    owner:
+      type: string
+      nullable: true
+    docstatus:
+      type: integer
+      default: 0
+    idx:
+      type: integer
+      default: 0
+    customer:
+      type: string
+      nullable: true
+    rule_name:
+      type: string
+      nullable: true
+    beneficiary:
+      type: string
+      nullable: true
+    duration:
+      type: string
+      nullable: true
+    period_start:
+      type: string
+      format: date-time
+      nullable: true
+    current_limit_value:
+      type: integer
+    limit_value:
+      type: integer
+    remaining_limit_value:
+      type: integer
+    user_tags:
+      type: string
+      nullable: true
+    comments:
+      type: string
+      nullable: true
+    assign:
+      type: string
+      nullable: true
+    liked_by:
+      type: string
+      nullable: true

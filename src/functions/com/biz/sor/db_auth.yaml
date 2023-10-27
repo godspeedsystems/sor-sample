@@ -1,0 +1,35 @@
+summary: A custom ACL calculation function
+description: |
+  A sample function showing custom logic to fetch ACLs for a given user from a database.
+  You can also use an external AUTH service or whatever suits your purpose.
+  For a successful auth, this function should return either only true, or a data object
+  with where clause, and either or none of allowed fields or not_allowed fields.
+  Option1: true/false
+  Option2: {
+    data: {
+      where: {
+        //Prisma.io syntax for SELECT clause
+      },
+      allowed: ["field1", "field2", "relatedTable.fieldX", "relatedTable.fieldY"],
+      not_allowed: ["field1", "field2", "relatedTable.fieldX", "relatedTable.fieldY"]
+    }
+  }
+tasks:
+  - id: get_acl
+    description: allow/deny list for user
+    fn: datasource.mariaDB.acl.findUnique
+    args:
+      owner_id: <% inputs.userId %>
+  - id: transform
+    fn: com.gs.return
+    args: |
+      <%
+        return {
+          data: {
+            allowed: outputs.get_acl.data.map(tuple => tuple.column_name)
+
+          }
+        }
+      %>
+    # you can custom login, but this function should return { allowed: [], not_allowed: [], where: {}}
+    # data: ['current_limit_value', 'limit_value', 'remaining_limit_value', 'customer.name']me

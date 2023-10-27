@@ -1,0 +1,39 @@
+{
+  "name": "godspeed-project",
+  "version": "1.0.0",
+  "description": "My first godspeed project.",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "nodemon ./src/index.ts",
+    "clean": "rm -rf dist",
+    "compile": "tsc",
+    "gen-crud-api": "npx @godspeedsystems/api-generator",
+    "build": "tsc --build --verbose"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^18.17.19",
+    "@types/socket.io": "^3.0.2",
+    "copyfiles": "^2.4.1",
+    "nodemon": "^2.0.20",
+    "prisma": "^5.2.0",
+    "ts-node": "^10.9.1",
+    "tslib": "^2.6.2",
+    "typescript": "^4.9.5"
+  },
+  "dependencies": {
+    "@godspeedsystems/api-generator": "^2.0.2",
+    "@godspeedsystems/core": "^2.0.4",
+    "@godspeedsystems/plugins-axios-as-datasource": "^1.0.0-beta.7",
+    "@godspeedsystems/plugins-cron-as-eventsource": "^1.0.0",
+    "@godspeedsystems/plugins-express-as-http": "^1.0.5",
+    "@godspeedsystems/plugins-kafka-as-datasource-as-eventsource": "^1.0.1",
+    "@godspeedsystems/plugins-prisma-as-datastore": "^1.0.0-beta.4",
+    "@godspeedsystems/plugins-redis-as-datasource": "^1.0.0",
+    "@prisma/client": "^5.2.0",
+    "axios": "^1.4.0",
+    "express": "^4.18.2",
+    "redis": "^4.6.10"
+  }
+}

@@ -1,0 +1,18 @@
+lang: coffee
+log_level: debug
+httpbin:
+  base_url: https://zero8.dev
+person:
+  name: Default
+
+# logger level and senstive field redaction
+log:
+  level: debug
+  redact: [
+    'doc.request.id',
+    'doc.request.payment.*',
+    'req.headers',
+    '**.mobileNumber'
+  ]
+# application wide setting for caching. datasource must implement GSCachingDatasource
+caching: redis

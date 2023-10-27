@@ -1,0 +1,36 @@
+id: get_transaction_limit
+tasks:
+  - id: get_transaction
+    # Prisma plugin supports modifying SQL queries based on ACLs
+    authz: #com.biz.custom_authorization_function
+      where:
+        tsp_id: <% inputs.body.tsp_id %>
+      allowed: ["field1", "field2", "relatedTable.fieldX", "relatedTable.fieldY"]
+      not_allowed: ["field1", "field2", "relatedTable.fieldX", "relatedTable.fieldY"]
+    fn: datastore.mariaDB.tabTransaction_Limits.findMany
+    args:
+      where:
+        enabled: 1
+      select:
+        rule_json: true
+    cache:
+      key: <% `${dbPrefix}transaction_limits` %>
+      cache_on_failure : false
+      invalidate: some_cache_key
+      expires: 60
+      force: false
+    on_error:
+      continue: false
+      log_attributes:  # You can add specific log attributes when an error happens in a task.
+            error_message: "Error while getting transaction limit."
+            error_type: db_error
+      response:
+        success: false
+        code: 500
+        data: "Error while getting transaction limit."
+  - id: transform
+    fn: com.gs.return
+    args:
+      code: 200
+      message: 'response'
+      data: <% outputs.data.transaction_limits.map(item => JSON.parse(item.rule_json)); %>

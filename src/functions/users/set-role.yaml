@@ -1,0 +1,36 @@
+id: set_user_role
+on_error:
+  continue: false
+  log_attributes:
+    error_message: <% outputs.transform_error.message %>
+    error_type: <%coffee  %>
+  response:
+    success: 'false'
+    code: 500
+    data: "Default error"
+tasks:
+  - id: find_user
+    fn: datastore.mariaDB.User.findUnique
+    args:
+      where:
+        id: <% inputs.body.userId %>
+  - id: check_user
+    fn: com.gs.switch
+    value: <% outputs.chcckdb.data === null %>
+    cases:
+      true:
+        - id: no_user_found
+          fn: com.gs.return
+          args:
+            status: false
+            code: 404
+            message: 'This user does not exists.'
+            data: {}
+      false:
+        - id: user_found
+          fn: datastore.mariaDB.User.update
+          args:
+            where:
+              id: <% inputs.body.userId %>
+            data:
+              role: <% inputs.body.role %>

@@ -1,0 +1,8 @@
+summary: Update User
+tasks:
+  - id: mongo_user_update
+    fn: datasource.mariaDB.User.update
+    args:
+      where:
+        id: <% parseInt(inputs.params.id) %>
+      data: <% inputs.body %>

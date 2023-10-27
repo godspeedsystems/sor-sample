@@ -1,0 +1,36 @@
+http.post./set-role:
+  fn: users.create_user
+  authz:
+    role: ADMIN
+    department: accounts
+  params:
+    - name: content-Type
+      in: headers
+      required: true
+      schema:
+        type: string
+        enum: ['application/json']
+    - name: ssid
+      in: cookies
+      schema:
+        type: boolean
+        enum: [true, false]
+  body:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            userId:
+              type: number
+            role:
+              enum: ['ADMIN', 'MANAGER']
+  responses:
+    200:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string

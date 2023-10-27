@@ -1,0 +1,7 @@
+summary: Fetch tabCustomer_Transaction_Limits
+tasks:
+  - id: mongo_tabcustomer_transaction_limits_one
+    fn: datasource.mariaDB.tabCustomer_Transaction_Limits.findUnique
+    args:
+      where:
+        name: <% inputs.params.name %>

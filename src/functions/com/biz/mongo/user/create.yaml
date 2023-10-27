@@ -1,0 +1,6 @@
+summary: Create User
+tasks:
+  - id: mongo_user_create
+    fn: datasource.mariaDB.User.create
+    args:
+      data: <% inputs.body %>

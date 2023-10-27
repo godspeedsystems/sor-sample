@@ -1,0 +1,33 @@
+id: fetch_user_from_mongo
+on_error:
+  continue: false
+  log_attributes:
+        error_message: <% outputs.transform_error.message %>
+        error_type: <%coffee  %>
+  response:
+    success: false
+    code: 500
+    data: "Default error"
+tasks:
+  - id: fetch_user
+    caching:
+      key: cache_step1
+      cache_on_failure : false
+      expires: 60
+      force: false
+    fn: datastore.mariaDB.User.findUnique
+    args:
+      where:
+        userId: <% inputs.params.userId %>
+  - id: transform
+    fn: com.gs.transform
+    args: |
+      <%
+        return {
+          success: true,
+          code: 200,
+          message: 'User'
+          data: outputs.fetch_user.data
+        }
+      %>
+

@@ -1,0 +1,88 @@
+# ONE
+http.get./mongo/tabcustomer_transaction_limits/{name}:
+  summary: Fetch tabCustomer_Transaction_Limits
+  description: Fetch tabCustomer_Transaction_Limits from database
+  fn: com.biz.mariaDB.tabcustomer_transaction_limits.one
+  params:
+    - name: name
+      in: path
+      required: true
+      schema:
+        type: string
+  responses:
+    content:
+      application/json:
+        schema:
+          type: object
+
+# CREATE
+http.post./mongo/tabcustomer_transaction_limits:
+  summary: Create a new tabCustomer_Transaction_Limits
+  description: Create tabCustomer_Transaction_Limits from database
+  fn: com.biz.mariaDB.tabcustomer_transaction_limits.create
+  body:
+    content:
+      application/json:
+        schema:
+          $ref: '#/definitions/mongo/tabCustomer_Transaction_Limits'
+  responses:
+    content:
+      application/json:
+        schema:
+          type: object
+
+# UPDATE
+http.put./mongo/tabcustomer_transaction_limits/{name}:
+  summary: Update a tabCustomer_Transaction_Limits
+  description: Update tabCustomer_Transaction_Limits from database
+  fn: com.biz.mariaDB.tabcustomer_transaction_limits.update
+  body:
+    content:
+      application/json:
+        schema:
+          $ref: '#/definitions/mongo/tabCustomer_Transaction_Limits'
+  params:
+    - name: name
+      in: path
+      required: true
+      schema:
+        type: string
+  responses:
+    content:
+      application/json:
+        schema:
+          type: object
+
+# DELETE
+http.delete./mongo/tabcustomer_transaction_limits/{name}:
+  summary: Delete a tabCustomer_Transaction_Limits
+  description: Delete tabCustomer_Transaction_Limits from database
+  fn: com.biz.mariaDB.tabcustomer_transaction_limits.delete
+  params:
+    - name: name
+      in: path
+      required: true
+      schema:
+        type: string
+  responses:
+    content:
+      application/json:
+        schema:
+          type: object
+
+# SEARCH
+http.post./mongo/tabcustomer_transaction_limits/search:
+  summary: Fetch multiple tabCustomer_Transaction_Limits
+  description: Fetch multiple tabCustomer_Transaction_Limits from database
+  fn: com.biz.mariaDB.tabcustomer_transaction_limits.search
+  body:
+    content:
+      application/json:
+        schema:
+          type: object
+  responses:
+    content:
+      application/json:
+        schema:
+          type: array
+

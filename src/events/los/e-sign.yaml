@@ -1,0 +1,49 @@
+http.post./e-sign:
+  authz: com.biz.custom_auth_rule_engine
+  params:
+    in: path
+    schema:
+      lender_loan_application_id:
+        type: string
+    required: true
+    nullable: false
+  body:
+    content:
+      application/json:
+        schema:
+          type: object
+          docId:
+            type: number
+  responses:
+    200:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+              code:
+                type: number
+                format: int32
+              data:
+                type: object
+              success:
+                type: boolean
+                const: true
+    400:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+              code:
+                type: number
+                format: int32
+              data:
+                type: object
+              success:
+                type: boolean
+                const: false

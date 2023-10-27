@@ -1,0 +1,19 @@
+# publish the error to kafka on topic 'validation_errors'
+id: error_handler
+tasks:
+  - id: send_to_kafka
+    fn: datasource.kafka.publish
+    args:
+      topic: validation_errors
+      inputs: |
+        <%
+          {
+            path: inputs.path,
+            headers: inputs.headers,
+            params: inputs.params,
+            body: inputs.body,
+            user: inputs.user
+          }
+        %>
+      message: 'Invalid input'
+      error: <% inputs.validation_error %>

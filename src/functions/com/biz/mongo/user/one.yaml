@@ -1,0 +1,7 @@
+summary: Fetch User
+tasks:
+  - id: mongo_user_one
+    fn: datasource.mariaDB.User.findUnique
+    args:
+      where:
+        id: <% parseInt(inputs.params.id) %>

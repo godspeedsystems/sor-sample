@@ -1,0 +1,22 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/javascript-node-postgres
+{
+  "name": "Godspeed v2",
+  "dockerComposeFile": "docker-compose.yml",
+  "remoteUser": "node",
+  "settings": {
+    "terminal.integrated.profiles.linux": {
+      "node bash": {
+        "path": "/bin/bash"
+      }
+    },
+    "terminal.integrated.defaultProfile.linux": "node bash",
+    "debug.node.autoAttach": "disabled"
+  },
+  "service": "node",
+  "workspaceFolder": "/workspace/app",
+  "forwardPorts": [
+    3000
+  ],
+  "shutdownAction": "stopCompose"
+}

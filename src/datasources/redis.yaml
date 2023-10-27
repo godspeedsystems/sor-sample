@@ -1,0 +1,2 @@
+type: redis
+url: redis://localhost:6379?ConnectTimeout=5000&IdleTimeOutSecs=180

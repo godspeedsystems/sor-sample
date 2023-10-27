@@ -1,0 +1,8 @@
+summary: Update tabCustomer_Transaction_Limits
+tasks:
+  - id: mongo_tabcustomer_transaction_limits_update
+    fn: datasource.mariaDB.tabCustomer_Transaction_Limits.update
+    args:
+      where:
+        name: <% inputs.params.name %>
+      data: <% inputs.body %>

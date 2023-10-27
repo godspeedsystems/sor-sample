@@ -1,0 +1,6 @@
+summary: Fetch many tabCustomer_Transaction_Limits
+tasks:
+  - id: mongo_tabcustomer_transaction_limits_search
+    fn: datasource.mariaDB.tabCustomer_Transaction_Limits.findMany
+    args:
+      data: <% inputs.body %>

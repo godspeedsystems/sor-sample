@@ -1,0 +1,7 @@
+summary: Delete tabCustomer_Transaction_Limits
+tasks:
+  - id: mongo_tabcustomer_transaction_limits_delete
+    fn: datasource.mariaDB.tabCustomer_Transaction_Limits.delete
+    args:
+      where:
+        name: <% inputs.params.name %>

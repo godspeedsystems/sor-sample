@@ -1,0 +1,6 @@
+summary: Fetch many User
+tasks:
+  - id: mongo_user_search
+    fn: datasource.mariaDB.User.findMany
+    args:
+      data: <% inputs.body %>

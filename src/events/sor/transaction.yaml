@@ -1,0 +1,27 @@
+# transaction API
+http.post./tabTransaction:
+  fn: tabTransaction.create
+  on_validation_error: com.biz.sor.invalid_transaction_input
+  authz: validate_jwt
+  body:
+    content:
+      application/json:
+        schema:
+          $ref: '#/definitions/tabTransaction.tabTransactionBody'
+  responses:
+    200:
+      content:
+        application/json:
+          schema:
+            type: '#/definitions/tabTransaction.tabTransactionSuccessResponse'
+    201:
+      $ref: '#/responses/200'
+      content:
+        application/json:
+          schema:
+            type: '#/definitions/tabTransaction.tabTransactionSuccessResponse'
+    400:
+      content:
+        application/json:
+          schema:
+            type: '#/definitions/tabTransaction.tabTransactionFailureResponse'
