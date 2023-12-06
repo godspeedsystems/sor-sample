@@ -25,9 +25,15 @@ tasks:
     args: |
       <%
         return {
-          data: {
-            allowed: outputs.get_acl.data.map(tuple => tuple.column_name)
-
+      {
+            success: true,
+            data: {
+                "User": {
+                  "where": {ownerId: <%user.user_id%>, departmentId: <%user.department_id%>}, // This is the additional where clause for authz, which must be added as part of the sql query to DB by the plugin. This clause will be in Prisma format.
+                  "can_access": ["column1","column2"] //The plugin should not allow to return or update any column outside this array. 
+                  "no_access": ["column1"] //The columns not allowed to be retrieved or updated. In case can_access is provided, then no_access will be not used. 
+                }
+            }
           }
         }
       %>

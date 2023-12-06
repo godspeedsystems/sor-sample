@@ -1,5 +1,5 @@
 http.post./e-sign:
-  authz: com.biz.custom_auth_rule_engine
+  authz: com.biz.sor.db_auth
   params:
     in: path
     schema:

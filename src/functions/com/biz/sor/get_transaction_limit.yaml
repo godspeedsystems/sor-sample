@@ -2,7 +2,20 @@ id: get_transaction_limit
 tasks:
   - id: get_transaction
     # Prisma plugin supports modifying SQL queries based on ACLs
-    authz: #com.biz.custom_authorization_function
+    authz: 
+      summary: apply the rules over enriched context. Returns true or false
+      fn: |
+            <%
+                user.role === 'admin' &&
+                user.department === 'HR'
+            %>   
+    summary: kafka publish message 
+    tasks:
+      - id: publish
+        fn: datasource.kafka.producer
+        args:
+          topic: 'publish-producer1'
+          message: <% inputs.body.message %>
       where:
         tsp_id: <% inputs.body.tsp_id %>
       allowed: ["field1", "field2", "relatedTable.fieldX", "relatedTable.fieldY"]

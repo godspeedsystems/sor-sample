@@ -4,9 +4,13 @@
     - id: step1 # the response of this will be accessible within the parent step key, under the step1 sub key
       description: agreement esign
       # simple allow / deny
-      authz: <% inputs.user.role  === 'ADMIN' && inputs.user.department === 'ACCOUNTS' %>
-      fn: datastore.e-sign-api.post./v1/loan-application/<% inputs.params.lender_loan_application_id %>/agreement/esign/initiate
-      args:
+      authz: 
+        summary: apply the rules over enriched context. Returns true or false
+        fn: |
+              <%
+                user.role === 'admin' &&
+                user.department === 'HR'
+              %>
         docId: <% inputs.body.docId %>
       retry:
         max_attempts: 5
